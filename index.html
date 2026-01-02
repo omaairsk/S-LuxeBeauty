@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S-Luxe Beauty - Your Personal Beauty Consultant</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-gem"></i>
+                    <span>S-Luxe Beauty</span>
+                </div>
+                <nav class="nav" id="mainNav">
+                    <a href="#home" class="nav-link active">Home</a>
+                    <a href="#products" class="nav-link">Products</a>
+                    <a href="#try-on" class="nav-link">Virtual Try-On</a>
+                    <a href="#consultation" class="nav-link">Consultation</a>
+                    <a href="#reviews" class="nav-link">Reviews</a>
+                    <a href="#about" class="nav-link">About</a>
+                </nav>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Discover Your Perfect Beauty Match</h1>
+                <p class="hero-subtitle">Find the best beauty products tailored to your skin type, from affordable to luxury options</p>
+                <div class="hero-buttons">
+                    <a href="#products" class="btn btn-primary">Explore Products</a>
+                    <a href="#try-on" class="btn btn-secondary">Try Virtual Try-On</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="section products-section">
+        <div class="container">
+            <h2 class="section-title">Our Product Collection</h2>
+            <p class="section-subtitle">Browse through our curated selection of beauty products</p>
+            
+            <!-- Filters -->
+            <div class="filters">
+                <div class="filter-group">
+                    <label>Skin Type:</label>
+                    <select id="skinTypeFilter" class="filter-select">
+                        <option value="all">All Skin Types</option>
+                        <option value="dry">Dry Skin</option>
+                        <option value="oily">Oily Skin</option>
+                        <option value="combination">Combination Skin</option>
+                        <option value="sensitive">Sensitive Skin</option>
+                        <option value="normal">Normal Skin</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label>Category:</label>
+                    <select id="categoryFilter" class="filter-select">
+                        <option value="all">All Categories</option>
+                        <option value="moisturizer">Moisturizers</option>
+                        <option value="serum">Serums</option>
+                        <option value="cleanser">Cleansers</option>
+                        <option value="sunscreen">Sunscreens</option>
+                        <option value="mask">Face Masks</option>
+                        <option value="makeup">Makeup</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label>Price Range:</label>
+                    <select id="priceFilter" class="filter-select">
+                        <option value="all">All Prices</option>
+                        <option value="budget">Budget ($5-$20)</option>
+                        <option value="mid">Mid-Range ($20-$50)</option>
+                        <option value="luxury">Luxury ($50+)</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-reset" id="resetFilters">Reset Filters</button>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Virtual Try-On Section -->
+    <section id="try-on" class="section try-on-section">
+        <div class="container">
+            <h2 class="section-title">Virtual Try-On</h2>
+            <p class="section-subtitle">Use your camera to see how products might look on your skin tone</p>
+            
+            <div class="try-on-container">
+                <div class="camera-section">
+                    <div class="camera-box" id="cameraBox">
+                        <video id="cameraVideo" autoplay playsinline></video>
+                        <canvas id="cameraCanvas" style="display: none;"></canvas>
+                        <div class="camera-overlay" id="cameraOverlay">
+                            <i class="fas fa-camera"></i>
+                            <p>Click "Start Camera" to begin</p>
+                        </div>
+                    </div>
+                    <div class="camera-controls">
+                        <button class="btn btn-primary" id="startCameraBtn">Start Camera</button>
+                        <button class="btn btn-secondary" id="captureBtn" style="display: none;">Capture Image</button>
+                        <button class="btn btn-danger" id="stopCameraBtn" style="display: none;">Stop Camera</button>
+                    </div>
+                    <div class="skin-tone-result" id="skinToneResult" style="display: none;">
+                        <h3>Detected Skin Tone</h3>
+                        <div class="color-preview" id="colorPreview"></div>
+                        <p id="skinToneText"></p>
+                        <p class="info-text">Note: This is a basic color detection. For accurate recommendations, consult with our beauty experts.</p>
+                    </div>
+                </div>
+                
+                <div class="recommendations-section">
+                    <h3>Recommended Products</h3>
+                    <div id="recommendedProducts" class="recommended-products">
+                        <p class="placeholder-text">Use the virtual try-on to get personalized recommendations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Consultation Section -->
+    <section id="consultation" class="section consultation-section">
+        <div class="container">
+            <h2 class="section-title">Book a Consultation</h2>
+            <p class="section-subtitle">Connect with our beauty experts for personalized advice</p>
+            
+            <div class="consultation-container">
+                <div class="consultation-info">
+                    <div class="info-card">
+                        <i class="fas fa-user-md"></i>
+                        <h3>Expert Guidance</h3>
+                        <p>Get professional advice from certified beauty consultants</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h3>Flexible Scheduling</h3>
+                        <p>Choose a time that works best for your schedule</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>100% Private</h3>
+                        <p>Your information is never stored or shared</p>
+                    </div>
+                </div>
+                
+                <form class="consultation-form" id="consultationForm">
+                    <h3>Request a Consultation</h3>
+                    
+                    <div class="form-group">
+                        <label for="consultName">Full Name *</label>
+                        <input type="text" id="consultName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="consultEmail">Email Address *</label>
+                        <input type="email" id="consultEmail" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="consultPhone">Phone Number</label>
+                        <input type="tel" id="consultPhone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="consultSkinType">Your Skin Type</label>
+                        <select id="consultSkinType">
+                            <option value="">Select your skin type</option>
+                            <option value="dry">Dry</option>
+                            <option value="oily">Oily</option>
+                            <option value="combination">Combination</option>
+                            <option value="sensitive">Sensitive</option>
+                            <option value="normal">Normal</option>
+                            <option value="not-sure">Not Sure</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="consultConcerns">Main Skin Concerns</label>
+                        <textarea id="consultConcerns" rows="4" placeholder="Tell us about your skin concerns..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="consultPreferredDate">Preferred Date</label>
+                        <input type="date" id="consultPreferredDate">
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="consultPrivacy" required>
+                        <label for="consultPrivacy">I agree that my consultation request data will be processed only to contact me and will not be stored permanently</label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-full">Submit Request</button>
+                    <p class="form-note">We'll contact you within 24 hours to schedule your consultation</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="section reviews-section">
+        <div class="container">
+            <h2 class="section-title">Customer Reviews</h2>
+            <p class="section-subtitle">See what our customers are saying</p>
+            
+            <div class="reviews-container">
+                <!-- Review Form -->
+                <div class="review-form-container">
+                    <h3>Share Your Experience</h3>
+                    <form class="review-form" id="reviewForm">
+                        <div class="form-group">
+                            <label for="reviewName">Your Name *</label>
+                            <input type="text" id="reviewName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Rating *</label>
+                            <div class="star-rating" id="starRating">
+                                <i class="far fa-star" data-rating="1"></i>
+                                <i class="far fa-star" data-rating="2"></i>
+                                <i class="far fa-star" data-rating="3"></i>
+                                <i class="far fa-star" data-rating="4"></i>
+                                <i class="far fa-star" data-rating="5"></i>
+                            </div>
+                            <input type="hidden" id="ratingValue" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reviewComment">Your Review *</label>
+                            <textarea id="reviewComment" rows="4" required placeholder="Share your experience with S-Luxe Beauty..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Submit Review</button>
+                    </form>
+                </div>
+                
+                <!-- Reviews Display -->
+                <div class="reviews-display">
+                    <h3>Recent Reviews</h3>
+                    <div class="reviews-list" id="reviewsList">
+                        <p class="loading-text">Loading reviews...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about-section">
+        <div class="container">
+            <h2 class="section-title">About S-Luxe Beauty</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Your Trusted Beauty Partner</h3>
+                    <p>S-Luxe Beauty is dedicated to helping women discover the perfect beauty products for their unique skin type. We understand that every woman's skin is different, and what works for one may not work for another.</p>
+                    
+                    <p>Our platform offers a curated selection of beauty products ranging from budget-friendly options to luxury brands, all categorized by skin type and concern. Whether you're dealing with dry skin, oily skin, or anything in between, we've got you covered.</p>
+                    
+                    <h3>Our Promise</h3>
+                    <ul class="about-list">
+                        <li><i class="fas fa-check"></i> Honest, unbiased product recommendations</li>
+                        <li><i class="fas fa-check"></i> Products for every budget</li>
+                        <li><i class="fas fa-check"></i> Expert consultation available</li>
+                        <li><i class="fas fa-check"></i> Your privacy is our priority - we don't store your personal data</li>
+                        <li><i class="fas fa-check"></i> Direct links to trusted retailers</li>
+                    </ul>
+                </div>
+                
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-boxes"></i>
+                        <h4>500+</h4>
+                        <p>Curated Products</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <h4>10,000+</h4>
+                        <p>Happy Customers</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-award"></i>
+                        <h4>50+</h4>
+                        <p>Beauty Brands</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>S-Luxe Beauty</h4>
+                    <p>Your trusted partner in discovering the perfect beauty products for your unique skin.</p>
+                    <div class="social-links">
+                        <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://pinterest.com" target="_blank" rel="noopener" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+                        <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#products">Products</a></li>
+                        <li><a href="#try-on">Virtual Try-On</a></li>
+                        <li><a href="#consultation">Consultation</a></li>
+                        <li><a href="#reviews">Reviews</a></li>
+                        <li><a href="#about">About Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-envelope"></i> <a href="mailto:info@sluxebeauty.com">info@sluxebeauty.com</a></li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 S-Luxe Beauty. All rights reserved.</p>
+                <p class="privacy-note"><i class="fas fa-shield-alt"></i> Your data is never stored. We respect your privacy.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/products.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
